@@ -1,15 +1,17 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    }
+    { "src": "api/index.js", "use": "@vercel/node" },
+    { "src": "api/send-reminders.js", "use": "@vercel/node" }
   ],
   "routes": [
+    { "src": "/api/create-payment-intent", "dest": "api/index.js" },
+    { "src": "/api/send-reminders", "dest": "api/send-reminders.js" }
+  ],
+  "crons": [
     {
-      "src": "/api/(.*)",
-      "dest": "api/index.js"
+      "path": "/api/send-reminders",
+      "schedule": "0 11 * * *"
     }
   ]
 }
